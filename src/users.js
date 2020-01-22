@@ -1,16 +1,31 @@
 import React from 'react'
-import { List, Datagrid, TextField, EmailField} from 'react-admin'
-import MyUrlField from './MyUrlField'
+import { List, Datagrid, TextField, Edit, SimpleForm, TextInput, ImageField} from 'react-admin'
 
 export const UserList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
-            <TextField source="lastname" />
             <TextField source="firstname" />
-            <EmailField source="email" />
+            <TextField source="lastname" />
+            <TextField source="mail" />
+            <TextField source="pseudo" />
             <TextField source="phone" />
-            <MyUrlField source="website" />
-            <TextField source="company.name" />
+            <TextField source="description" />
+            <TextField source="hobbies" />
+            <ImageField source="profil_pic" />
         </Datagrid>
     </List>
+);
+
+export const UserEdit = props => (
+    <Edit {...props}>
+        <SimpleForm>
+            <TextInput source="firstname" />
+            <TextInput source="lastname" />
+            <TextInput source="mail" />
+            <TextInput source="pseudo" />
+            <TextInput source="phone" />
+            <TextInput source="description" />
+            <TextInput source="hobbies" />
+        </SimpleForm>
+    </Edit>
 );
