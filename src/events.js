@@ -1,58 +1,37 @@
-import React, { useCallback } from 'react'
-import { Route, useHistory } from 'react-router-dom'
-import { List, BooleanField, Datagrid, TextField, Edit, SimpleForm, TextInput, ChipField, DateField, NumberField, ImageField, ImageInput, ArrayField, SingleFieldList, DateInput, ReferenceInput, SelectInput, ArrayInput, NumberInput, SimpleFormIterator} from 'react-admin'
-import { Drawer, useMediaQuery, makeStyles } from '@material-ui/core';
-import Validate from './validate'
+import React from 'react'
+import {List, Datagrid, TextField, DateField, NumberField, BooleanField, ImageField, BooleanInput, DateInput, NumberInput, ImageInput, ReferenceField, EditButton, SelectInput, TextInput, Edit, SimpleForm, ReferenceInput, Create, Filter} from 'react-admin'
 
-export const Events = props => {
-    const history = useHistory();
-
-    const handleClose = useCallback(() => {
-        history.push('/events');
-    }, [history])
-
+export const EventList = props => {
     return (
-        <div>
-            <Route path="/events/:id">
-                {({ match }) => {
-                    const isMatch = !!(
-                        match&&
-                        match.params && 
-                        match.params.id !== 'create'
-                    )
-
-                    return (
-                        <>
-                            <List {...props} filter={{ pending : false}}>
-                                <Datagrid rowClick="edit">
-                                    <TextField source="id" />
-                                    <TextField source="name" />
-                                    <DateField source="date" />
-                                    <TextField source="rdv_point" />
-                                    <TextField source="mission" />
-                                    <NumberField source="status" />
-                                    <BooleanField source="pending" />
-                                    <ImageField source="url" />
-                                </Datagrid>
-                            </List>
-                            <Drawer
-                                variant="persistent"
-                                open={isMatch}
-                                anchor="right"
-                                onClose={handleClose}
-                            >
-                                {isMatch ?
-                                    <Validate
-                                        id={match.params.id} 
-                                        onCancel={handleClose} 
-                                        {...props} 
-                                    />
-                                : null }                                
-                            </Drawer>
-                        </>
-                    )
-                }}
-            </Route>
-        </div>
+        <List {...props} title="Evenements" exporter={false} pagination={false} >
+            <Datagrid rowClick="edit">
+                <TextField source="id" sortable={false} />
+                <TextField source="name" label="Titre de l'evenement" sortable={false} />
+                <DateField source="date" label="Date" sortable={false} />
+                <TextField source="rdv_point" label="Point de rendez-vous" sortable={false} />
+                <TextField source="mission" label="Mission" sortable={false} />
+                <NumberField source="status" label="Status" sortable={false} />
+                <BooleanField source="pending" label="Validé" sortable={false} />
+                <ImageField source="url" label="Photo" sortable={false} />
+            </Datagrid>
+        </List>
     )
 }
+
+export const EventEdit = props => (
+    <Edit {...props}>
+        <SimpleForm>
+            <BooleanInput source="pending" label="Validé " />
+            <TextInput source="name" label="Titre de l'evenement" />
+            <TextInput source="position" label="Position"/>
+            <DateInput source="date" label="Date"/>
+            <TextInput source="rdv_point" label="Point de rendez-vous" />
+            <TextInput source="mission" label="Mission" />
+            <NumberInput source="status" label="Status" />
+            <ImageInput source="url" accept="image/*">
+                <ImageField source="src" title="title" />
+            </ImageInput>
+        </SimpleForm>
+    </Edit>
+);
+ 
