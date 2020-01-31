@@ -12,6 +12,6 @@ export default () => (
     <Card style={styles.dash}>
         <CardHeader title="Bienvenue sur la page d'administration de Clean my calanques" />
         <CardContent>Indications à donner</CardContent>
-        <a href='https://localhost:3000' style={styles.button}><button>Retour sur l'application</button></a>
+        <a href='https://cleanmycalanques.netlify.com' style={styles.button}><button>Retour sur l'application</button></a>
     </Card>
 );
